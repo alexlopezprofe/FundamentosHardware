@@ -1,4 +1,4 @@
-# Unidad 7. Arquitectura de centros de proceso de datos
+# Unidad 6. Arquitectura de centros de proceso de datos
 
 Un centro de procesamiento de datos o CPD (Data Center en inglés) es el lugar o las instalaciones donde se centralizan todas las operaciones e infraestructura de IT de una organización. Aquí se almacenan y procesan los datos y aplicaciones de la misma.
 
