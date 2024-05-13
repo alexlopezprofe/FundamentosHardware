@@ -101,10 +101,69 @@ Un conmutador de transferencia automática actúa como intermediario entre el eq
 
 ## SAI. Sistema alimentación ininterrumpida
 
-SAI o UPS (Uninterrupted Power Supply)
+SAI (Sistema alimentación ininterrumpida) o UPS (Uninterrupted Power Supply) son dispositivos que se utilizan  para proporcionar protección contra problemas eléctricos y cortes de corriente
 
+Una de las funciones principales que tiene un SAI (UPS) es la de  suministrar energía eléctrica acumulada en sus baterías cuando se producen apagones o cortes de suministro eléctrico, impidiendo así posibles averías de los dispositivos conectados al evitar que se apaguen repentinamente, pero no es la única función, la mayoría de los sistemas de alimentación ininterrumpida disponen de un AVR o regulador de tensión lo que nos garantiza un estabilidad en la corriente de salida eliminando armónicos de la red eléctrica  para lograr una alimentación más constante lo que ayuda a extender la vida útil de los equipos conectados al SAI. 
 
+### Tecnologías de SAI
 
+#### Off-Line
+Un SAI dotado con tecnología Off-Line suministra la corriente eléctrica sin ningún filtro a los dispositivos conectados,  este tipo de tecnología carece de AVR (Regulador de voltaje). El SAI  Off-Line solamente empezará a funcionar cuando detecte un fallo de corriente eléctrica, es en este momento preciso cuando el SAI conmuta a modo baterías, es decir se comenzará a suministrar la energía que ha ido almacenando en sus baterías a los dispositivos conectados. Estos Sais necesitan un tiempo de conmutación (normalmente 2-10 ms) para pasar a modo baterías, es preciso tener este dato en cuenta a la hora de conectar dispositivos sensibles que pudieran verse afectados en el proceso de conmutación,  es impórtate indicar que este tipo de Sais son solo recomendables para las zonas que disponen de una red estable ya que al no realizar ningún filtrado de la corriente, solo protegen ante un corte de suministro eléctrico.
+
+![image](https://github.com/alexlopezprofe/FundamentosHardware/assets/148449360/4ac33889-0d62-490d-83ec-7a9f6951ad13)
+
+#### In-Line
+
+Un SAI Interactivo o In-Line ofrece una protección eléctrica intermedia, su tecnología es similar a la de los Sais Off-Line pero incorpora una serie de filtros activos como microprocesador que controla las fluctuaciones de la red eléctrica en ±15%, regulando la tensión de salida (efecto Buck/Boos AVR Integrado) habitualmente este tipo de Sais devuelven una onda pseudo-sinusoidal o sinusoidal pura dependiendo del modelo , este proceso de filtrado y mejora de la corriente que llega a los dispositivos conectados al SAI se realiza sin que entren a funcionar las baterías, por lo que la protección con un SAI interactivo es superior aún sin sufrir apagones. Al igual que los SAI Off-line tienen un pequeño tiempo de conmutación en el que no hay suministro eléctrico, normalmente de 2-10 ms, es por este motivo por el que se tiene que tener especial cuidado a la hora de conectar dispositivos sensibles que pudieran verse afectados en el tiempo de conmutación a modo baterías.
+
+![image](https://github.com/alexlopezprofe/FundamentosHardware/assets/148449360/dcaa7025-e673-4d06-b4ae-c199a5dcb7b1)
+
+#### On-Line
+
+Un SAI On-Line realiza una doble conversión de la energía eléctrica que recibe, transformándola en continua y después a alterna de nuevo, eliminando de esta manera todos los problemas que pueda tener. Un Sai On-Line siempre proporciona energía eléctrica directamente desde sus baterías mientras estas se van cargando de la red, y esto es lo que garantiza que la protección contra cualquier problema de la red eléctrica sea total. Debido a su alta fiabilidad, la tecnología On-Line ocupa el sector profesional en el mercado de SAIS y está generalmente destinada a proteger servidores, equipos industriales o cualquier instalación informática que por su importancia o coste necesite la seguridad de no verse afectados por problemas derivados de la red eléctrica.
+
+![image](https://github.com/alexlopezprofe/FundamentosHardware/assets/148449360/aed09ab9-ddb0-4018-b2c2-4594836f28d3)
+
+#### Capacidad SAI
+
+**Potencia aparente (S)**
+
+La unidad de "potencia aparente" (S) que encontramos en los Sais es el Voltiamperio (Va) o el KiloVoltioampério (KVa), también llamado Kavea ( 1KVa = 1000 Va ).
+
+La fórmula es: S=V*I; donde la «S» es la potencia eléctrica total cuya unidad es el voltiamperio (VA), la «V» es la tensión eléctrica (V) y la «I» es la corriente eléctrica (A)
+
+**Factor de potencia FP**
+
+Es la relación entre la energía suministrada (potencia aparente) y la energía realmente consumida (potencia activa). 
+
+Se calcula así: FP=P/S; donde el «FP» es la relación entre la potencia activa y la potencia aparente y carece de unidad, la «P» es la potencia activa (W) y la «S» es la potencia aparente (VA).
+
+Ejemplo: Si tenemos un consumo de P=400W y un factor de potencia FP=0.6 Necesitos un SAI de potencia aparente de al menos S=P/FP=666.6VA
+
+EL factor de pontencia tambien lo podemos ver expresado en porcentaje FP=0.6=60%
+
+**Autonomía**
+
+T = [(N*V*Ah*Ef)/S]*60
+
+Donde
+* T: Es el tiempo de autonomía total que tendrá el SAI
+* N: Es el número de baterías del SAI, normalmente el fabricante indica este parámetro
+* V: Es la tensión que ofrecen las baterías
+* Ah: Son los amperios/hora (Ah) de la batería
+* Ef: Es la eficiencia de las baterías. Normalmente es entre el 98-90%, aunque normalmente para el cálculo de la autonomía se toma el 95%, que es un término medio
+* S: Es la potencia aparente del SAI
+* 60: Representa una hora en minutos y sirve para convertir el resultado en una unidad de medida fácilmente manejable
+
+Ejemplo
+
+Pongamos que tenemos un SAI de 700VA, dos baterías, una tensión de batería de 9V y 5Ah. Suponemos además una eficiencia del 95% (cuando lo aplicamos en la fórmula, es interesante hacerlo ya convertido, siendo 0.95). Ahora simplemente cambiamos los datos en la fórmula, tal que así:
+
+T= [(2*9*5*0.95)/700]*60  —>  T= 7.32 minutos
+
+Así que con el SAI elegido, tendremos más de 7 minutos de autonomía para poder cerrar el sistema con seguridad. Debemos tener en cuenta que la potencia para la que estamos el SAI es superior a la potencia real de consumo, para tener un margen, así que la autonomía será mucho mayor. Sea como fuese, la autonomía es más que suficiente para apagar el sistema con seguridad.
+
+https://www.rackonline.es/sai-ups
 
 # Refrigeración
 
